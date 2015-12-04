@@ -63,6 +63,34 @@ function apiGeneral(db){
 
               }
           ) // obtenerUsuario
+          
+            apirouter.get("/insertarCarrito/:des",function(req,res){
+    var query = req.params.des;
+
+  var Carrito={
+    idUsuario:req.session.usuarioId,
+    Usuario:req.session.usuarioNombre,
+    producto:query
+
+  };
+      CarritoCompra.insertOne(Carrito,function(err,doc){
+    console.log("Insertado");
+    if(err){
+      res.status(500).json({"error":err});
+      }
+
+    else{
+
+  //    res.redirect("../mindex");
+
+      res.status(200).json({"resultado":doc});
+
+
+
+      }
+  })
+})//CarritoCompra
+
 
 
   return apirouter;
